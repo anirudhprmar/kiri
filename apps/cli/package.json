@@ -1,0 +1,19 @@
+{
+  "name": "cli",
+  "module": "index.ts",
+  "scripts": {
+    "dev": "bun run src/index.ts"
+  },
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@chat/network": "workspace:*",
+    "@chat/protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
