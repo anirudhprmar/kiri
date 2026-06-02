@@ -1,7 +1,13 @@
 {
   "name": "@chat/network",
   "version": "0.0.1",
+  "scripts": {
+    "check-types": "tsc --noEmit"
+  },
   "dependencies": {
     "@chat/protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
   }
 }

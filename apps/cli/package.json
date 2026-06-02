@@ -2,7 +2,8 @@
   "name": "cli",
   "module": "index.ts",
   "scripts": {
-    "dev": "bun run src/index.ts"
+    "dev": "bun run src/index.ts",
+    "check-types": "tsc --noEmit"
   },
   "type": "module",
   "private": true,

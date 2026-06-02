@@ -20,5 +20,9 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "uuid": "^14.0.0",
+    "zod": "^4.4.3"
+  }
 }
