@@ -37,13 +37,13 @@ await Bun.connect({
     }
 });
 
-function promptMessage(socket:any){
+function promptMessage(socket:Bun.Socket<undefined>){
     rl.question("Message: ", (input: string)=>{
 
         if(input.trim() === "exit"){
             console.log("[NODE] Exiting...");
             socket.end()
-            return
+            return;
         }
         const message:MessageProtocol = {
             id: crypto.randomUUID(),

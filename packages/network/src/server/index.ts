@@ -1,5 +1,13 @@
 import {ProtocolCategory, type HelloProtocol, type MessageProtocol } from "@chat/protocol";
 
+interface Peer{
+    nodeId:string,
+    username:string,
+    port:number
+    socket:Bun.Socket<undefined>
+}
+const peerRegistry:Map<string, Peer> = new Map()
+
 const server = Bun.listen({
     hostname: "localhost",
     port: 9000,
@@ -17,6 +25,13 @@ const server = Bun.listen({
                 console.log(`username: ${parsedMessage.username}`);
                 console.log(`listeningPort: ${parsedMessage.listeningPort}`);
                 console.log(`nodeId: ${parsedMessage.nodeId}`);
+                peerRegistry.set(parsedMessage.nodeId, {
+                    nodeId: parsedMessage.nodeId,
+                    username: parsedMessage.username,
+                    port: parsedMessage.listeningPort,
+                    socket:socket
+                })
+                console.log(`[NODE] Connected Peers: ${peerRegistry.size}`);
             }
             else if (parsedMessage.category === ProtocolCategory.MESSAGE) {
                 console.log(`[NODE] Received ${parsedMessage.category.toUpperCase()}`);
@@ -26,8 +41,14 @@ const server = Bun.listen({
             
             socket.write(`${parsedMessage.category.toUpperCase()} packet`);
         },
-        close() {
+        close(socket) {
             console.log("[NODE] Peer disconnected.");
+            peerRegistry.forEach((peer) => {
+                if (peer.socket === socket) {
+                    peerRegistry.delete(peer.nodeId);
+                }
+            });
+            console.log(`[NODE] Connected Peers: ${peerRegistry.size}`);
         },
         error(error) {
             console.error("[NODE] Error:", error);

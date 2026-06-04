@@ -1,8 +1,12 @@
 ## TODO
 
-- [X]-Keep connection alive.
-- [X]-Add MessageProtocol.
-- [X]-Allow typing messages from terminal.
-- [X]-Receive messages while connection remains open.
-- [X]-Maintain connected peer list.
-- [X]-Handle packets based on category.
+- [X]- Add a peer registry.
+- [ ]- Support multiple connections simultaneously.
+- [ ]- Broadcast a message to all connected peers.
+- [ ]- Generate unique node IDs.
+- [ ]- Add packet IDs.
+- [ ]- Add duplicate-message protection.
+- [ ]-Implement PEER packet exchange.
+- [ ]-Auto-discover peers.
+- [ ]-Move from client.ts / server.ts to a unified node.ts.
+- [ ]-Build the CLI interface
