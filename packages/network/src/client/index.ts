@@ -1,29 +1,32 @@
-import {ProtocolCategory, type HelloProtocol } from "@chat/protocol";
+import {ProtocolCategory, type HelloProtocol, type MessageProtocol } from "@chat/protocol";
+import readline from "node:readline"
 
-const clientHello:HelloProtocol = {
-    id: "1",
-    username: "Anirudh",
-    timestamp: Date.now(),
-    listeningPort: 9000,
-    nodeId: "1",
-    category: ProtocolCategory.HELLO
-} 
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
 
 
-
-const client = await Bun.connect({
+await Bun.connect({
     hostname: "localhost",
     port: 9000,
     socket: {
         open(socket) {
             console.log("[NODE] Connected to server!");
-            socket.write(JSON.stringify(clientHello));
+            const hello: HelloProtocol = {
+                id: crypto.randomUUID(),
+                category: ProtocolCategory.HELLO,
+                username: "Anirudh",
+                timestamp: Date.now(),
+                listeningPort: 9000,
+                nodeId: "client-node"
+            };
+            socket.write(JSON.stringify(hello));
         },
         data(socket, data) {
             const reply = new TextDecoder().decode(data);
-            console.log(`[NODE] Received reply: "${reply}"`);
-            console.log("[NODE] Closing connection.");
-            socket.end();
+            console.log(`[NODE] received: ${reply}`);
+            promptMessage(socket);
         },
         close() {
             console.log("[NODE] Connection closed.");
@@ -33,3 +36,22 @@ const client = await Bun.connect({
         }
     }
 });
+
+function promptMessage(socket:any){
+    rl.question("Message: ", (input: string)=>{
+
+        if(input.trim() === "exit"){
+            console.log("[NODE] Exiting...");
+            socket.end()
+            return
+        }
+        const message:MessageProtocol = {
+            id: crypto.randomUUID(),
+            category: ProtocolCategory.MESSAGE,
+            username: "Anirudh",
+            message: input,
+            timestamp: Date.now()
+        }
+        socket.write(JSON.stringify(message))
+    })
+}
