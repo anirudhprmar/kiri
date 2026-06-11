@@ -6,6 +6,12 @@ const rl = readline.createInterface({
     output: process.stdout
 })
 
+const username = await new Promise<string>((resolve) => {
+    rl.question("Username: ", (answer) => {
+        resolve(answer.trim()) ?? `user-${crypto.randomUUID().slice(0, 6)}`;
+    });
+})
+
 
 await Bun.connect({
     hostname: "localhost",
@@ -16,10 +22,10 @@ await Bun.connect({
             const hello: HelloProtocol = {
                 id: crypto.randomUUID(),
                 category: ProtocolCategory.HELLO,
-                username: "Anirudh",
+                username,
                 timestamp: Date.now(),
                 listeningPort: 9000,
-                nodeId: "client-node"
+                nodeId: crypto.randomUUID()
             };
             socket.write(JSON.stringify(hello));
         },
@@ -38,6 +44,7 @@ await Bun.connect({
 });
 
 function promptMessage(socket:Bun.Socket<undefined>){
+
     rl.question("Message: ", (input: string)=>{
 
         if(input.trim() === "exit"){
@@ -48,7 +55,7 @@ function promptMessage(socket:Bun.Socket<undefined>){
         const message:MessageProtocol = {
             id: crypto.randomUUID(),
             category: ProtocolCategory.MESSAGE,
-            username: "Anirudh",
+            username,
             message: input,
             timestamp: Date.now()
         }

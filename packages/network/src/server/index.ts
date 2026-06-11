@@ -32,6 +32,7 @@ const server = Bun.listen({
                     socket:socket
                 })
                 console.log(`[NODE] Connected Peers: ${peerRegistry.size}`);
+                console.log(`[NODE] ${socket.remoteAddress}:${socket.remotePort} registered as ${parsedMessage.username} (${parsedMessage.nodeId})`);
             }
             else if (parsedMessage.category === ProtocolCategory.MESSAGE) {
                 console.log(`[NODE] Received ${parsedMessage.category.toUpperCase()}`);

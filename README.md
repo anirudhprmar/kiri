@@ -1,9 +1,8 @@
 ## TODO
 
-- [X]- Add a peer registry.
-- [ ]- Support multiple connections simultaneously.
-- [ ]- Broadcast a message to all connected peers.
-- [ ]- Generate unique node IDs.
+- [X]- Support multiple connections simultaneously.
+- [X]- Broadcast a message to all connected peers.
+- [X]- Generate unique node IDs.
 - [ ]- Add packet IDs.
 - [ ]- Add duplicate-message protection.
 - [ ]-Implement PEER packet exchange.
