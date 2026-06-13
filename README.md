@@ -1,8 +1,6 @@
 ## TODO
 
-- [X]- Support multiple connections simultaneously.
-- [X]- Broadcast a message to all connected peers.
-- [X]- Generate unique node IDs.
+- [ ]- Broadcast a message to all connected peers.
 - [ ]- Add packet IDs.
 - [ ]- Add duplicate-message protection.
 - [ ]-Implement PEER packet exchange.

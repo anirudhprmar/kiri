@@ -19,6 +19,7 @@ export interface MessageProtocol {
     id: string;
     username: string;
     message: string;
+    fromNodeId: string;
     timestamp: number;
     category: ProtocolCategory.MESSAGE;
 }
