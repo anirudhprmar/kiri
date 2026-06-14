@@ -1,14 +1,17 @@
 {
-  "name": "@chat/network",
+  "name": "@chat/cli",
   "version": "0.0.1",
+  "type": "module",
+  "private": true,
   "scripts": {
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {
-    "@chat/cli": "workspace:*",
-    "@chat/protocol": "workspace:*"
-  },
   "devDependencies": {
     "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
+
+
