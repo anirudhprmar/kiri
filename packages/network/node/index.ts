@@ -63,15 +63,18 @@ Bun.listen({
                 }
                 
                 if (parsedMessage.category === ProtocolCategory.MESSAGE) {
-                    console.log(`[NODE] Received ${parsedMessage.category.toUpperCase()}`);
-                    console.log(`username: ${parsedMessage.username}`);
-                    console.log(`message: ${parsedMessage.message}`);
 
-                    if(seenMessages.has(parsedMessage.id)) return;
+                    if(seenMessages.has(parsedMessage.id)){
+                        return;
+                    }
                     
                     seenMessages.add(parsedMessage.id);
 
-                    console.log([...peerRegistry.keys()])
+                    if(parsedMessage.username !== username){
+                    console.log(`[${parsedMessage.username}]: ${parsedMessage.message}`);
+                    }else{
+                        console.log(`[You]: ${parsedMessage.message}`);
+                    }
                     peerRegistry.forEach((peer) => {
                         peer.socket.write(JSON.stringify(parsedMessage) + "\n");
                     })
@@ -116,9 +119,11 @@ Bun.listen({
                     if (parsedReply.category !== ProtocolCategory.MESSAGE) {
                         return;
                     }
-
-                    console.log(`[NODE] Message from ${parsedReply.username}`);
-                    console.log(`[NODE] Received: ${parsedReply.message}`);
+                    if(parsedReply.username !== username){
+                    console.log(`[${parsedReply.username}]: ${parsedReply.message}`);
+                    }else{
+                        console.log(`[You]: ${parsedReply.message}`);
+                    }
                 });
 
                 peerRegistry.set(nodeId, {
@@ -130,6 +135,7 @@ Bun.listen({
             },
             close() {
                 console.log("[NODE] Connection closed.");
+                peerRegistry.delete(nodeId);
             },
             error(error) {
                 console.error("[NODE] Error:", error);
