@@ -1,27 +1,7 @@
-"use client"
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
-import {Check, ChevronRight, Copy} from 'lucide-react'
 import Link from 'next/link'
 
 export default function Hero() {
-  const [isCopied,setIsCopied] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-
-  const handleClick = async() => {
-    try {
-      await navigator.clipboard.writeText("npm install kiri");
-      setIsCopied(prev => !prev);
-      setTimeout(() => {
-        setIsCopied(prev => !prev)
-      }, 700);
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   return (
     <section>
@@ -37,26 +17,11 @@ export default function Hero() {
           size={'lg'}
           className='h-10 cursor-pointer'
           >
-            <Link href={'/docs'}>
-            Read Docs
+            <Link href={'https://github.com/anirudhprmar/kiri.git'}>
+            Github
             </Link>
           </Button>
 
-          <Button 
-          variant={'secondary'}
-          size={'lg'}
-          className="flex items-center gap-2 rounded-md  px-4 py-2 font-mono text-sm cursor-pointer h-10"
-          onMouseEnter={handleMouseEnter} 
-          onMouseLeave={handleMouseLeave}
-          onClick={handleClick}
-          >
-            <span className='relative h-4 w-4'>
-            <ChevronRight className={`${!isCopied && !isHovered ? "absolute text-muted-foreground transition-all duration-200": "opacity-0"  }`}/>
-            <Copy className={` ${!isCopied && isHovered  ? "absolute text-muted-foreground transition-all duration-200 top-0": "opacity-0" }`} />
-            <Check className={` ${isCopied ? "absolute text-muted-foreground transition-all duration-200 top-0": "opacity-0" }`}/> 
-            </span>
-            <code>npm install kiri</code>
-        </Button>
         </div>
       </div>
 

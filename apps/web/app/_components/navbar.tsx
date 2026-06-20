@@ -12,13 +12,6 @@ export default function Navbar() {
                 Kiri.
               </Link>
             </p>
-            <div>
-              <p className='font-light text-lg text-white drop-shadow-md'>
-                <Link href={'/docs'}>
-                  Docs
-                </Link>
-              </p>
-            </div>
         </div>
         <div>
             <ul className='flex items-center'>

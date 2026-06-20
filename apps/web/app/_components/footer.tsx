@@ -12,9 +12,6 @@ export default function Footer() {
           <Link href={'https://github.com/anirudhprmar/kiri'} className='text-white drop-shadow-md hover:opacity-80 transition'>
             GitHub
           </Link>
-          <Link href={'/docs'} className='text-white drop-shadow-md hover:opacity-80 transition'>
-            Docs
-          </Link>
         </div>
       </div>
     </footer>
